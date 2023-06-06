@@ -1,0 +1,3 @@
+helm: | 
+  domain: dev.curq.k8s.onestein.eu
+  modules: website,website_sale,sale
