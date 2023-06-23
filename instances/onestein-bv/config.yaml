@@ -1,3 +1,6 @@
-helm: | 
-  domain: dev.curq.k8s.onestein.eu
+
+helm: |
+  domain: onestein-bv.curq.k8s.onestein.eu
   modules: website
+  matomo:
+    enabled: true
