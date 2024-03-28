@@ -1,0 +1,35 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: "tarteo-test-set-default"
+  namespace: argocd
+spec:
+  goTemplate: true
+  generators:
+  - git:
+      repoURL: git@github.com:tarteo/test-set.git
+      revision: main
+      files:
+      - path: instances/**/config.yaml
+  template:
+    metadata:
+      name: "tarteo-test-set-{{ .path.basename }}"
+    spec:
+      project: "default"
+      source:
+        repoURL: git@github.com:tarteo/test-set.git
+        targetRevision: main
+        path: app
+        helm:
+          values: |
+            {{ .helm }}
+      destination:
+        name: in-cluster
+        namespace: "tarteo-test-set-{{ .path.basename }}"
+      syncPolicy:
+        syncOptions:
+        - CreateNamespace=true
+        automated:
+          prune: false
+          selfHeal: false
+        
