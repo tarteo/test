@@ -19,7 +19,7 @@ spec:
       source:
         repoURL: git@github.com:tarteo/test.git
         targetRevision: main
-        path: "application_sets/{{ .path.basename }}"
+        path: "application_sets/{{ "{{ " }}.path.basename{{ " }}" }}"
       destination:
         name: in-cluster
         namespace: argocd
